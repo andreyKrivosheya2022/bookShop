@@ -1,0 +1,109 @@
+.product-catalog {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    margin-left: 25%; /* Отодвигаем каталог вправо, чтобы не перекрывался блок фильтра */
+}
+
+.product-cell {
+    position: relative;
+    flex: 0 0 20%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none; /* Убираем стандартное подчеркивание ссылки */
+    color: inherit; /* Наследуем цвет текста от родительского элемента */
+}
+
+.product-cell:hover{
+    border: 1px solid green;
+    border-radius: 7px;
+}
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Стили для меню */
+.menu {
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.menu li {
+    margin-right: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.menu a:hover {
+    color: #ff6600;
+}
+
+/* Стили для блока фильтрации */
+.filter-block {
+    width: 20%;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+
+.filter-block label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.filter-block select {
+    width: 100%;
+    padding: 5px;
+}
+
+.create-product-link {
+    display: block;
+    text-align: center;
+    margin: 50px auto;
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 150px;
+}
+
+.product-cell .details-button {
+    display: none; /* По умолчанию кнопка скрыта */
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.product-cell:hover .details-button {
+    display: block;
+    border: 1px solid green;
+}

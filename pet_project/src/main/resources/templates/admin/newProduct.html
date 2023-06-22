@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+    <title>Add product</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/newProduct.css}">
+</head>
+<body>
+<form th:method="POST" th:action="@{/shop/newProduct}" th:object="${product}">
+  <label for="name">Enter product name</label>
+  <input type="text" th:field="*{name}" id="name">
+  <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Name error</div>
+  <br/>
+    <label for="genre">Enter genre</label>
+    <input type="text" th:field="*{genre.name}" id="genre">
+  <div style="color:red" th:if="${#fields.hasErrors('genre.name')}" th:errors="*{genre}"> Name error</div>
+  <br/>
+    <label for="numberOfPages">Enter number of pages</label>
+    <input type="text" th:field="*{numberOfPages}" id="numberOfPages">
+  <div style="color:red" th:if="${#fields.hasErrors('numberOfPages')}" th:errors="*{numberOfPages}"> Name error</div>
+  <br/>
+    <label for="price">Enter price</label>
+    <input type="text" th:field="*{price}" id="price">
+  <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"> Name error</div>
+  <br/>
+    <label for="description">Enter description</label>
+    <input type="text" th:field="*{description}" id="description">
+  <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> Name error</div>
+  <br/>
+  <label for="imagePath">Edit imagePath</label>
+  <input type="text" th:field="*{imagePath}" id="imagePath">
+  <div style="color:red" th:if="${#fields.hasErrors('imagePath')}" th:errors="*{imagePath}"> imagePath error</div>
+  <input type="submit" value="Create new Product!">
+</form>
+</body>
+</html>

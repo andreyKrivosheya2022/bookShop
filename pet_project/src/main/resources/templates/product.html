@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/product.css}">
+</head>
+<body>
+<div class="product-card">
+    <h2 th:text="${product.getName()}"></h2>
+    <img th:src="@{${product.getImagePath()}}" alt="Product Image">
+    <p><strong>Color:</strong> <span th:text="${product.getGenre().getName()}"></span></p>
+    <p><strong>Size:</strong> <span th:text="${product.getNumberOfPages()}"></span></p>
+    <p><strong>Price:</strong> $<span th:text="${product.getPrice()}"></span></p>
+    <p><strong>Description:</strong> <span th:text="${product.getDescription()}"></span></p>
+
+    <a th:href="@{/shop/{id}/admin/editProduct(id=${product.getProduct_id()})}">Edit product</a>
+    <br/>
+    <hr/>
+    <a th:href="@{/shop/products}">Return to the list of products</a>
+    <br/>
+
+    <form th:method="post" th:action="@{/shop/cart/cartProducts}">
+        <input type="hidden" name="productId" th:value="${product.product_id}" />
+        <input type="submit" value="Buy this product">
+    </form>
+
+
+    <hr/>
+
+    <form th:method="DELETE" th:action="@{/shop/{id}(id=${product.getProduct_id()})}">
+        <input type="submit" value="DELETE">
+    </form>
+
+</div>
+</body>
+</html>

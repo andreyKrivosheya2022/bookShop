@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cartProducts.css}">
+</head>
+<body>
+
+<ul>
+    <li th:each="product, index : ${products}" class="product">
+        <img th:src="@{${product.imagePath}}" alt="Product">
+        <div class="product-details">
+            <h3 th:text="${product.name}">Product Name</h3>
+            <p>Price: $<span th:text="${product.price}">0.00</span></p>
+            <button>
+                <a th:href="@{/shop/{id}(id = ${product.getProduct_id()})}">Детальніше</a>
+            </button>
+
+            <form th:method="DELETE" th:action="@{/shop/{id}(id = ${product.getProduct_id})}">
+                <input type="submit" value="DELETE">
+            </form>
+        </div>
+    </li>
+</ul>
+
+<div class="return-link">
+    <a th:href="@{/shop/products}">Return to the list of products</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/products.css}">
+</head>
+<body>
+<!-- Українське меню -->
+<div class="menu">
+    <ul>
+        <li><a href="/static">Головна</a></li>
+        <li><a href="/про-нас">Про нас</a></li>
+        <li><a href="/продукти">Продукти</a></li>
+        <li><a href="/контакти">Контакти</a></li>
+    </ul>
+</div>
+
+<!-- Блок фільтрації -->
+<div class="filter-block">
+    <h3>Фільтр</h3>
+        <label for="genre-filter">Жанр книги:</label>
+        <form action="/shop/products" method="get">
+            <select id="genre-filter" name="genre">
+                <option value="">Всі жанри</option>
+                <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre}"></option>
+            </select>
+
+            <label for="size-filter">Кількість сторінок:</label>
+            <select id="size-filter" name="number_of_pages">
+                <option value="">Всі</option>
+                <option th:each="numberOfPages : ${uniqueNumberOfPages}" th:value="${numberOfPages}" th:text="${numberOfPages}"></option>
+            </select>
+
+            <label for="price-filter">Ціна:</label>
+            <select id="price-filter" name="price">
+                <option value="">Всі</option>
+                <option th:each="price : ${uniquePrices}" th:value="${price}" th:text="${price}"></option>
+            </select>
+            <input type="submit" value="Фільтрувати">
+        </form>
+    </div>
+
+</div>
+
+
+<!-- Код каталога товаров -->
+<div class="product-catalog">
+    <a th:each="product : ${products}" th:href="@{/shop/{id}(id=${product.getProduct_id()})}" class="product-cell">
+        <img th:src="@{${product.imagePath}}" alt="Product" class="product-image">
+        <h3 th:text="${product.name}">Product Name</h3>
+        <p>Price: $<span th:text="${product.price}">0.00</span></p>
+        <br/>
+        <button class="details-button">Детальніше</button> <!-- Скрытая кнопка "Детальнее" -->
+    </a>
+</div>
+
+<br/>
+<hr/>
+<a th:href="@{/shop/admin/newProduct}" class="create-product-link">Створити новий продукт</a>
+
+</body>
+</html>

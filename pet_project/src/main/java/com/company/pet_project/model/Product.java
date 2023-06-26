@@ -43,6 +43,9 @@ public class Product {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "quantity")
+    private Integer quantity;
+
     @ManyToOne()
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
     private Cart cart;

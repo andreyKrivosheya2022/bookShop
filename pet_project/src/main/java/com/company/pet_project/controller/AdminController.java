@@ -1,14 +1,22 @@
 package com.company.pet_project.controller;
 
 import com.company.pet_project.model.Product;
+import com.company.pet_project.model.productAttribute.Genre;
+import com.company.pet_project.repository.GenreRepository;
 import com.company.pet_project.service.ProductService;
 import com.company.pet_project.util.PersonValidator;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -17,19 +25,14 @@ public class AdminController {
 
     private final ProductService productService;
 
-    @GetMapping("/admin/products")
-    public String showProducts(Model model,
-                               @RequestParam(value="genre", required=false) String genre,
-                               @RequestParam(value = "number_of_pages", required = false) String number_of_pages){
-        if (genre != null) model.addAttribute("products", productService.findProductsByGenre(genre));
-        else if(number_of_pages != null) model.addAttribute("products", productService.findProductsByNumber(number_of_pages));
-        else model.addAttribute("products", productService.findAllProducts());
-        return "/products";
-    }
-
-
     @GetMapping("/admin/newProduct")
-    public String newProduct(@ModelAttribute("product") Product product){
+    public String newProduct(@ModelAttribute("product") Product product, Model model){
+        List<Product> productList = productService.findAllProducts();
+        Set<String> uniqueGenres = productList.stream()
+                        .map(product1 -> product1.getGenre().getName())
+                                .collect(Collectors.toSet());
+
+        model.addAttribute("uniqueGenres", uniqueGenres);
         return "/admin/newProduct";
     }
 
@@ -44,9 +47,11 @@ public class AdminController {
                                 BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "/admin/newProduct";
+
         productService.addProduct(product);
         return "redirect:/shop/products";
     }
+
 
     @DeleteMapping("/{id}")
     public String deleteProduct(@PathVariable("id") Long id){

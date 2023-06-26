@@ -39,4 +39,15 @@ public class CartService {
         return cartOptional.orElse(new Cart()); // Повернення кошика або нового об'єкта, якщо кошик не знайдено
     }
 
+    public Boolean findProductInCart(Product product){
+        Cart cart = findCartById(1L);
+        Optional<Product> prod = cart.getProductList().stream().filter(product1 -> product1 == product).findAny();
+        return prod.isPresent();
+    }
+
+    public void updateQuantity(Product product){
+        Cart cart = findCartById(1L);
+        productService.updateProduct(product.getProduct_id(), product);
+    }
+
 }

@@ -57,7 +57,7 @@
 
 <br/>
 <hr/>
-<a th:href="@{/shop/admin/newProduct}" class="create-product-link">Створити новий продукт</a>
+<a th:href="@{/shop/admin/newProduct}" class="create-product-link" th:if="${person.role.name} == 'ROLE_ADMIN'">Створити новий продукт</a>
 
 </body>
 </html>

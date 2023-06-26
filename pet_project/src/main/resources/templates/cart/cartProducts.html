@@ -13,11 +13,19 @@
         <div class="product-details">
             <h3 th:text="${product.name}">Product Name</h3>
             <p>Price: $<span th:text="${product.price}">0.00</span></p>
+            <p>Quantity <span th:text="${product.quantity}">1</span>
+
+                <form th:method="PATCH" th:action="@{/shop/cart/cartProducts}">
+                <input type="hidden" name="productId" th:value="${product.product_id}" />
+                <label>Edit quantity of Product</label>
+                <input type="text" name="quantity" th:value="${quantity}">
+                <input type="submit" value="Edit quantity">
+                </form>
             <button>
-                <a th:href="@{/shop/{id}(id = ${product.getProduct_id()})}">Детальніше</a>
+                <a th:href="@{/shop/{id}(id = ${product.getProduct_id()})}" style="text-decoration: none; color: inherit;">Детальніше</a>
             </button>
 
-            <form th:method="DELETE" th:action="@{/shop/{id}(id = ${product.getProduct_id})}">
+            <form th:method="DELETE" th:action="@{/shop/cart/{id}(id = ${product.getProduct_id})}">
                 <input type="submit" value="DELETE">
             </form>
         </div>
@@ -25,7 +33,7 @@
 </ul>
 
 <div class="return-link">
-    <a th:href="@{/shop/products}">Return to the list of products</a>
+    <button onclick="window.location.href='/shop/products'" style="text-decoration: none; color: inherit;">Return to the list of products</button>
 </div>
 
 </body>

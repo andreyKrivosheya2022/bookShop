@@ -14,22 +14,27 @@
     <p><strong>Price:</strong> $<span th:text="${product.getPrice()}"></span></p>
     <p><strong>Description:</strong> <span th:text="${product.getDescription()}"></span></p>
 
-    <a th:href="@{/shop/{id}/admin/editProduct(id=${product.getProduct_id()})}">Edit product</a>
+    <a th:href="@{/shop/{id}/admin/editProduct(id=${product.getProduct_id()})}" th:if="${person.role.name} == 'ROLE_ADMIN'">Edit product</a>
     <br/>
     <hr/>
     <a th:href="@{/shop/products}">Return to the list of products</a>
     <br/>
 
-    <form th:method="post" th:action="@{/shop/cart/cartProducts}">
+    <form th:method="post" th:action="@{/shop/cart/cartProducts}" th:unless="${booleaan}">
         <input type="hidden" name="productId" th:value="${product.product_id}" />
+        <label>Enter quantity of Product</label>
+        <input type="text" name="quantity" th:value="${quantity}">
         <input type="submit" value="Buy this product">
     </form>
 
+    <form th:method="DELETE" th:action="@{/shop/cart/{id}(id = ${product.getProduct_id})}" th:if="${booleaan}">
+        <input type="submit" value="Delete from cart">
+    </form>
 
     <hr/>
 
-    <form th:method="DELETE" th:action="@{/shop/{id}(id=${product.getProduct_id()})}">
-        <input type="submit" value="DELETE">
+    <form th:method="DELETE" th:action="@{/shop/{id}(id=${product.getProduct_id()})}" th:if="${person.role.name} == 'ROLE_ADMIN'">
+        <input type="submit" value="Delete from shop">
     </form>
 
 </div>

@@ -23,16 +23,27 @@ public class CartController {
     }
 
     @PostMapping("/cart/cartProducts")
-    private String addProduct(@RequestParam("productId") Long productId){
+    private String addProduct(@RequestParam("productId") Long productId, @RequestParam("quantity") Integer quantity, Model model){
         Product product = productService.findById(productId);
+        product.setQuantity(quantity);
         cartService.addProduct(product);
+        model.addAttribute("quantity", quantity);
         return "redirect:/shop/cart/cartProducts";
     }
 
-    @DeleteMapping("/cart/cartProducts")
+    @DeleteMapping("/cart/{id}")
     private String deleteProductFromCart(@PathVariable("id") Long id){
         Product product = productService.findById(id);
         cartService.deleteProductFromCart(product);
-        return "cart/cartProducts";
+        return "redirect:/shop/cart/cartProducts";
     }
+    @PatchMapping("/cart/{id}")
+    private String updateQuantity(@RequestParam("productId") Long productId, @RequestParam("quantity") Integer quantity, Model model){
+        Product product = productService.findById(productId);
+        product.setQuantity(quantity);
+        cartService.updateQuantity(product);
+        model.addAttribute("quantity", quantity);
+        return "redirect:/shop/cart/cartProducts";
+    }
+
 }

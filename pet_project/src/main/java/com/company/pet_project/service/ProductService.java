@@ -57,6 +57,7 @@ public class ProductService {
         product1.setName(product.getName());
         product1.setPrice(product.getPrice());
         product1.setDescription(product.getDescription());
+        product1.setQuantity(product.getQuantity());
         product1.setImagePath(product.getImagePath());
         addProduct(product1);
     }
